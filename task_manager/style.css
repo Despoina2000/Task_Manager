@@ -1,0 +1,13 @@
+body { font-family: Arial, sans-serif; margin: 20px; }
+.container { max-width: 800px; margin: 0 auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+th { background-color: #f4f4f4; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 8px; }
+button:disabled {
+    background-color: #ccc; /* Gray background */
+    cursor: not-allowed; /* Show a 'not-allowed' cursor */
+    opacity: 0.6; /* Slight transparency */
+}
