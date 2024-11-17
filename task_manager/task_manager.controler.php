@@ -26,15 +26,12 @@ function add_task()
         }
 
         // Validate Deadline
-        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $deadline)) {
-            $errors[] = "Deadline must be in the format YYYY-MM-DD.";
-        } else {
             $deadlineDate = DateTime::createFromFormat('Y-m-d', $deadline);
             $currentDate = new DateTime();
             if ($deadlineDate < $currentDate) {
                 $errors[] = "Deadline cannot be in the past.";
             }
-        }
+
 
         // If no errors, insert into the database
         if (empty($errors)) {

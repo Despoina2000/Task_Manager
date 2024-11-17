@@ -4,47 +4,31 @@ class Database {
     private $connection;
 
     private function __construct() {
-        try {
-            // Connect to SQLite database
-            $this->connection = new SQLite3('tasks.db');
+        // MySQL database configuration
+        $host = 'localhost'; // Change if phpMyAdmin runs on a different host
+        $dbname = 'task_manager'; // Replace with your database name
+        $username = 'root'; // Your MySQL username
+        $password = ''; // Your MySQL password (often empty for local setups)
 
-            // Execute SQL commands from the file
-            $this->initializeDatabase('./database.sql');
-        } catch (Exception $e) {
+        try {
+            // Create a PDO connection for MySQL
+            $this->connection = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+            // Set PDO error mode to exception for easier debugging
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
             die("Database connection failed: " . $e->getMessage());
         }
     }
 
-    // Prevent cloning or instantiation
-    private function __clone() {}
-    private function __wakeup() {}
-
     public static function getInstance() {
         if (self::$instance === null) {
-            self::$instance = new Database();
+            self::$instance = new self();
         }
-        return self::$instance->connection;
+        return self::$instance;
     }
 
-    // Initialize database with SQL file
-    private function initializeDatabase($sqlFilePath) {
-        if (file_exists($sqlFilePath)) {
-            $sql = file_get_contents($sqlFilePath);
-
-            // Split the SQL file into individual commands (in case of multiple statements)
-            $commands = array_filter(
-                array_map('trim', explode(';', $sql))
-            );
-
-            foreach ($commands as $command) {
-                if (!empty($command)) {
-                    $this->connection->exec($command);
-                }
-            }
-        } else {
-            die("SQL file not found: $sqlFilePath");
-        }
+    public function getConnection() {
+        return $this->connection;
     }
-
-
 }
+

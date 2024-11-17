@@ -10,11 +10,16 @@
 <div class="container">
     <?php
     require_once 'task_manager.controler.php';
-    require_once './config_session.php';
+    require_once '../config_session.php';
 
     $tasks= list_tasks();
     ?>
     <h1>Task Management System</h1>
+
+    <br>
+    <a href="add_task.view.php" style="text-decoration: none;">
+        <button> + Add Task </button>
+    </a>
 
     <?php if (isset($message)) echo "<p><strong>$message</strong></p>"; ?>
     <h2>Task List</h2>
