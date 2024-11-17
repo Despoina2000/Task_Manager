@@ -33,6 +33,7 @@ function add_task()
             }
 
 
+
         // If no errors, insert into the database
         if (empty($errors)) {
             $taskModel = new TaskModel();
@@ -62,7 +63,12 @@ function add_task()
     function update_task($id){
         $taskModel = new TaskModel();
         if($taskModel->checkTaskStatus($id)){
-            return $taskModel->updateTaskStatus($id);
+            $result = $taskModel->updateTaskStatus($id);
+            /*if ($result) {
+                // Task successfully updated, refresh the page
+                header("Location: " . $_SERVER['PHP_SELF']);
+                exit; // Stop further execution
+            }*/
         }
         return 'Failed to update task.';
 

@@ -22,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_task'])) {
 <?php if (isset($message)) echo "<p><strong>$message</strong></p>"; ?>
     <!-- Add Task Form -->
     <h2>Add New Task</h2>
+    <a href="list_of_tasks.view.php" style="text-decoration: none;">
+        <button> Home Page </button>
+    </a>
     <form method="POST">
         <div class="form-group">
             <label for="title">Title</label>
